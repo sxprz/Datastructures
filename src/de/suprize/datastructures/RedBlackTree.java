@@ -57,22 +57,37 @@ public class RedBlackTree {
      *  insert() will insert a value under the condition that the value does not
      *  already exist in the red-black tree.
      *
-     * @param  val the value that needs to be inserted in the red-black-tree
+     * @param  val the value that needs to be inserted in the red-black tree
      */
     public void insert(long val) {
         RBNode node = new RBNode(val);
         node.color = Color.RED;
 
-        RBNode parent, temp = root;
+        RBNode gparent, parent, temp = root;
         while(temp != null) {
-            parent = temp.parent;
-            
-            if(temp.val < val)
+            parent = temp;
+            gparent = parent.parent;
+
+            if(temp.val < val)  // insert on right side of the current node in the red-black tree
                 temp = temp.right;
-            else if(temp.val > val)
+                if(temp == null) {
+                    parent.right = node;
+                    node.parent = parent;
+                }
+
+                // TODO: balance with rotations
+
+            else if(temp.val > val)   // insert on left side of the current node in the red-black tree
                 temp = temp.left;
+                if(temp == null) {
+                    parent.left = node;
+                    node.parent = parent;
+                }
+
+                // TODO: balance with rotations
+
             else {
-                // TODO: insert
+                // value already exists, do not insert duplicates
                 return;
             }
         }
