@@ -76,6 +76,26 @@ public class RedBlackTree {
     }
 
     /**
+     *  successorNode() finds the nearest value strictly bigger than the given parameter.
+     *
+     * @param  val the value for which the procedure searches for the next biggest value in the red-black-tree
+     * @return     returns the node in the red-black-tree that contains a value which is strictly bigger than val
+     */
+    private RBNode successorNode(Long val) {
+        return null;
+    }
+
+    /**
+     *  predecessorNode() finds the nearest value strictly smaller than the given parameter.
+     *
+     * @param  val the value for which the procedure searches for the next smallest value in the red-black-tree
+     * @return     returns the node in the red-black-tree that contains a value which is strictly smaller than val
+     */
+    private RBNode predecessorNode(Long val) {
+        return null;
+    }
+
+    /**
      *  search() looks for a value in the red-black tree, which can be achieved in log(n) time,
      *  where n is the number of nodes in the tree.
      *
@@ -83,7 +103,12 @@ public class RedBlackTree {
      * @return     returns a boolean value, whether the specified long value is found
      */
     public boolean search(long val) {
-        // TODO
+        RBNode temp = root;
+        while(temp != null && temp.val != null) {
+            if(temp.val == val) return true;
+            if(temp.val < val) temp = temp.right;
+            if(temp.val > val) temp = temp.left;
+        }
         return false;
     }
 
@@ -147,6 +172,13 @@ public class RedBlackTree {
      * @return     returns whether the node with the value 'val' in the red-black tree was removed successfully.
      */
     public boolean delete(long val) {
+        /*
+            Case 1: Sibling of val is red
+            Case 2: Sibling is black with two black children
+            Case 3: Sibling black with one right black child
+            Case 4: Sibling is black with red right child
+        */
+
         // TODO
         return false;
     }
