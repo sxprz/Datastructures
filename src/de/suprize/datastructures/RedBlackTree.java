@@ -22,23 +22,57 @@ public class RedBlackTree {
         this.root = new RBNode(val);
     }
 
+    /*private long countBlackNodes(RBNode node) {
+        if(node == null) return 0;
+        return countBlackNodes(node.left) + countBlackNodes(node.right) + (node.color == Color.BLACK ? 1 : 0);
+    }
+
+    private boolean isValidTree() { // enforcing rule 2 and others in the isValid() call
+        return (root.color != Color.RED) && isValid(root);
+    }
+
+    private boolean isValid(RBNode node) {
+        return node == null || (isValid(node.left) && isValid(node.right) && (countBlackNodes(node.left) == countBlackNodes(node.right)));
+    }*/
+
     private enum Color {
         RED,
-        BLACK;
+        BLACK
     }
 
     private class RBNode {
-        private final long val;
+        private final Long val;
         Color color;
         RBNode left, right, parent;
 
-        public RBNode(long val) {
+        public RBNode(Long val) {
+            if(val == null) this.color = Color.BLACK;
             this.val = val;
         }
 
         public long getVal() {
             return val;
         }
+    }
+
+    /**
+     *  successor() finds the nearest value strictly bigger than the given parameter.
+     *
+     * @param  val the value for which the procedure searches for the next biggest value in the red-black-tree
+     * @return     returns a value, which is strictly bigger than val and contained in the red-black-tree
+     */
+    public Long successor(Long val) {
+        return -1L;
+    }
+
+    /**
+     *  predecessor() finds the nearest value strictly smaller than the given parameter.
+     *
+     * @param  val the value for which the procedure searches for the next smallest value in the red-black-tree
+     * @return     returns a value, which is strictly smaller than val and contained in the red-black-tree
+     */
+    public Long predecessor(Long val) {
+        return -1L;
     }
 
     /**
@@ -62,6 +96,8 @@ public class RedBlackTree {
     public void insert(long val) {
         RBNode node = new RBNode(val);
         node.color = Color.RED;
+        //node.left = new RBNode(null);
+        //node.right = new RBNode(null);
 
         RBNode gparent, parent, temp = root;
         while(temp != null) {
