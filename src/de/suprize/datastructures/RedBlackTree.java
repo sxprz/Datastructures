@@ -61,6 +61,24 @@ public class RedBlackTree {
     }
 
     /**
+     *  rotateLeft() performs a left rotation around the given node, which alters the tree structure.
+     *
+     *  @param  node a node contained in a red-black-tree
+     */
+    private void rotateLeft(RBNode node) {
+
+    }
+
+    /**
+     *  rotateRight() performs a right rotation around the given node, which alters the tree structure.
+     *
+     * @param  node a node contained in a red-black-tree
+     */
+    private void rotateRight(RBNode node) {
+
+    }
+
+    /**
      *  successor() finds the nearest value strictly bigger than the given parameter.
      *
      * @param  val the value for which the procedure searches for the next biggest value in the red-black-tree
