@@ -85,16 +85,16 @@ public class RedBlackTree {
      * @return     returns a value, which is strictly bigger than val and contained in the red-black-tree
      */
     public Long successor(Long val) {
-        RBNode node = searchNode(val);                          // search for given value
-        if(Objects.equals(node.val, val)) {                     // check if value exists and node is not null
-            RBNode rightChild = node.right;
-            if(rightChild != null) return rightChild.val;       // if the next bigger value is the right child of node -> return right child's value
+        RBNode node = searchNode(val);                              // search for given value
+        if(Objects.equals(node.val, val)) {                         // check if value exists and node is not null
+            RBNode right = node.right;
+            if(right != null) return right.val;                     // if the next bigger value is the right child of node -> return right child's value
 
             Long nodeVal;
-            while(true) {                                       // go up to next parent and check if the parent value is larger than val
+            while(node.parent != null) {                            // go up to next parent and check if the parent value is larger than val
                 node = node.parent;
                 nodeVal = node.val;
-                if(nodeVal > val) return nodeVal;               // in case this is true -> we found the successor and return the result
+                if(Long.compare(nodeVal, val) == 1) return nodeVal; // in case this is true -> we found the successor and return the result
             }
         }
         return null;
@@ -107,6 +107,18 @@ public class RedBlackTree {
      * @return     returns a value, which is strictly smaller than val and contained in the red-black-tree
      */
     public Long predecessor(Long val) {
+        RBNode node = searchNode(val);
+        if(Objects.equals(node.val, val)) {
+            RBNode left = node.left;
+            if(left != null) return left.val;
+
+            Long nodeVal;
+            while(node.parent != null) {
+                node = node.parent;
+                nodeVal = node.val;
+                if(Long.compare(nodeVal, val) == -1) return nodeVal;
+            }
+        }
         return null;
     }
 
