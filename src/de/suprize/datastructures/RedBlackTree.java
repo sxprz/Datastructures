@@ -16,6 +16,8 @@ import java.util.Objects;
  *  The implementation for most functions/methods are attempted in an iterative instead of a recursive matter, because of stack-size limitations
  *  and the possibilities for large number of nodes in the red-black-tree.
  *
+ *  TODO: Write tests for each method
+ *
  * @author  suprize
  * @since   2022-03-03
  */
@@ -55,8 +57,22 @@ public class RedBlackTree {
             this.val = val;
         }
 
-        public long getVal() {
-            return val;
+        public void print_inorder() {
+            if(left != null) left.print_inorder();
+            System.out.print(val + " ");
+            if(right != null) right.print_inorder();
+        }
+
+        public void print_preorder() {
+            System.out.print(val + " ");
+            if(left != null) left.print_preorder();
+            if(right != null) right.print_preorder();
+        }
+
+        public void print_postorder() {
+            if(left != null) left.print_postorder();
+            if(right != null) right.print_postorder();
+            System.out.print(val + " ");
         }
     }
 
@@ -247,5 +263,26 @@ public class RedBlackTree {
 
         // TODO
         return false;
+    }
+
+    /**
+     *  print_inorder() prints the red-black tree by traversing in in-order.
+     */
+    public void print_inorder() {
+        root.print_inorder();
+    }
+
+    /**
+     *  print_preorder() prints the red-black tree by traversing in pre-order.
+     */
+    public void print_preorder() {
+        root.print_preorder();
+    }
+
+    /**
+     *  print_postorder() prints the red-black tree by traversing in post-order.
+     */
+    public void print_postorder() {
+        root.print_postorder();
     }
 }
