@@ -3,6 +3,8 @@ package de.suprize.datastructures;
 import java.util.Objects;
 
 /**
+ *  A red-black tree is a self-balancing binary-searchtree (BST) in respect to black nodes in the tree.
+ *
  *  This is a custom implementation of the red-black tree data structure.
  *  A red-black tree follows these rules, when inserting a node:
  *
@@ -101,16 +103,16 @@ public class RedBlackTree {
      * @return     returns a value, which is strictly bigger than val and contained in the red-black-tree
      */
     public Long successor(Long val) {
-        RBNode node = searchNode(val);                              // search for given value
-        if(Objects.equals(node.val, val)) {                         // check if value exists and node is not null
+        RBNode node = searchNode(val);                                  // search for given value
+        if(Objects.equals(node.val, val)) {                             // check if value exists in tree and if node is not null
             RBNode right = node.right;
-            if(right != null) return right.val;                     // if the next bigger value is the right child of node -> return right child's value
+            if(right != null) return right.val;                         // if the next bigger value is the right child of node -> return right child's value
 
             Long nodeVal;
-            while(node.parent != null) {                            // go up to next parent and check if the parent value is larger than val
+            while(node.parent != null) {                                // go up to next parent and check if the parent value is larger than val
                 node = node.parent;
                 nodeVal = node.val;
-                if(Long.compare(nodeVal, val) == 1) return nodeVal; // in case this is true -> we found the successor and return the result
+                if(Long.compare(nodeVal, val) == 1) return nodeVal;     // return successor's value
             }
         }
         return null;
@@ -123,16 +125,16 @@ public class RedBlackTree {
      * @return     returns a value, which is strictly smaller than val and contained in the red-black-tree
      */
     public Long predecessor(Long val) {
-        RBNode node = searchNode(val);
-        if(Objects.equals(node.val, val)) {
+        RBNode node = searchNode(val);                                  // search for given value
+        if(Objects.equals(node.val, val)) {                             // check if value exists in tree and if node is not null
             RBNode left = node.left;
-            if(left != null) return left.val;
+            if(left != null) return left.val;                           // if the next smaller value is the left child of node -> return left child's value
 
             Long nodeVal;
-            while(node.parent != null) {
+            while(node.parent != null) {                                // go up to next parent and check if the parent value is smaller than val
                 node = node.parent;
                 nodeVal = node.val;
-                if(Long.compare(nodeVal, val) == -1) return nodeVal;
+                if(Long.compare(nodeVal, val) == -1) return nodeVal;    // return predecessor's value
             }
         }
         return null;
@@ -145,6 +147,16 @@ public class RedBlackTree {
      * @return     returns the node in the red-black-tree that contains a value which is strictly bigger than val
      */
     private RBNode successorNode(Long val) {
+        RBNode node = searchNode(val);                                  // search for given value
+        if(Objects.equals(node.val, val)) {                             // check if value exists in tree and if node is not null
+            RBNode right = node.right;
+            if(right != null) return right;                             // if the next bigger value is the right child of node -> return right child
+
+            while(node.parent != null) {                                // go up to next parent and check if the parent value is larger than val
+                node = node.parent;
+                if(Long.compare(node.val, val) == 1) return node;       // return successor
+            }
+        }
         return null;
     }
 
@@ -155,6 +167,16 @@ public class RedBlackTree {
      * @return     returns the node in the red-black-tree that contains a value which is strictly smaller than val
      */
     private RBNode predecessorNode(Long val) {
+        RBNode node = searchNode(val);                                  // search for given value
+        if(Objects.equals(node.val, val)) {                             // check if value exists in tree and if node is not null
+            RBNode left = node.left;
+            if(left != null) return left;                               // if the next smaller value is the left child of node -> return left child
+
+            while(node.parent != null) {                                // go up to next parent and check if the parent value is smaller than val
+                node = node.parent;
+                if(Long.compare(node.val, val) == -1) return node;      // return predecessor
+            }
+        }
         return null;
     }
 
@@ -163,14 +185,14 @@ public class RedBlackTree {
      *  where n is the number of nodes in the tree.
      *
      * @param  val the value that is being searched for
-     * @return     returns a boolean value, whether the specified long value is found
+     * @return     returns true if val was found, otherwise false
      */
     public boolean search(long val) {
-        RBNode node = root;
-        while(node != null && node.val != null) {
-            if(node.val == val) return true;
-            if(node.val < val) node = node.right;
-            else               node = node.left;
+        RBNode node = root;                                             // start searching from root
+        while(node != null && node.val != null) {                       // search as long as node and its value are not null
+            if(node.val == val) return true;                            // if node.val and val are equal, return true
+            if(node.val < val) node = node.right;                       // if the node value is smaller than val, then search on the right subtree, i.e. node will be the right child in the next iteration
+            else               node = node.left;                        // otherwise node will be the left child
         }
         return false;
     }
@@ -211,28 +233,29 @@ public class RedBlackTree {
             parent = temp;
             gparent = parent.parent;
 
-            if(temp.val < val)  // insert on right side of the current node in the red-black tree
+            if(temp.val < val) {  // insert on right side of the current node in the red-black tree
                 temp = temp.right;
-                if(temp == null) {
+                if (temp == null) {
                     parent.right = node;
                     node.parent = parent;
                 }
 
-                // TODO: balance with rotations
+                // TODO: balance with rotations, not implemented yet
+                throw new RuntimeException("not implemented yet");
 
-            else if(temp.val > val)   // insert on left side of the current node in the red-black tree
+            } else if(temp.val > val) {   // insert on left side of the current node in the red-black tree
                 temp = temp.left;
-                if(temp == null) {
+                if (temp == null) {
                     parent.left = node;
                     node.parent = parent;
                 }
 
-                // TODO: balance with rotations
+                // TODO: balance with rotations, not implemented yet
+                throw new RuntimeException("not implemented yet");
 
-            else {
+            } else
                 // value already exists, do not insert duplicates
                 return;
-            }
         }
     }
 
