@@ -45,28 +45,33 @@ public class RedBlackTree {
     }*/
 
     private enum Color {
-        RED,
-        BLACK
+        R, B    // R stands for Red, B stands for Black
     }
 
     private class RBNode {
-        private final Long val;
+        private final Long val;                         // immutable value, remove node from tree to remove this value
         Color color;
-        RBNode left, right, parent;
+        RBNode left, right, parent;                     // BST property: Every node has two children, a left and a right child; there is also a parent pointer for easier programming
 
         public RBNode(Long val) {
-            if(val == null) this.color = Color.BLACK;
-            this.val = val;
+            if(val == null)                             // for NIL nodes: black color
+                this.color = Color.B;
+            else {
+                left = new RBNode(null);            // if a normal node is created it will have two NIL children
+                right = new RBNode(null);
+            }
+
+            this.val = val;                             // assign value to node
         }
 
         public void print_inorder() {
             if(left != null) left.print_inorder();
-            System.out.print(val + " ");
+            if(val != null) System.out.print(val + " ");
             if(right != null) right.print_inorder();
         }
 
         public void print_preorder() {
-            System.out.print(val + " ");
+            if(val != null) System.out.print(val + " ");
             if(left != null) left.print_preorder();
             if(right != null) right.print_preorder();
         }
@@ -74,7 +79,7 @@ public class RedBlackTree {
         public void print_postorder() {
             if(left != null) left.print_postorder();
             if(right != null) right.print_postorder();
-            System.out.print(val + " ");
+            if(val != null) System.out.print(val + " ");
         }
     }
 
@@ -201,10 +206,10 @@ public class RedBlackTree {
      *  searchNode() looks for the node which contains a certain value in the red-black tree, which can be achieved in log(n) time,
      *  where n is the number of nodes in the tree.
      *
-     *  In case the value is not found, the last node where the value was compared to, will be returned.
+     *  In case the value is not found, the last node where the value is supposed to be, will be returned, i.e a null pointer.
      *
      * @param  val the value that is being searched for
-     * @return     returns a RBNode object which contains the value that has been looked for
+     * @return     returns a RBNode object which is located at val's position numerically
      */
     private RBNode searchNode(long val) {
         RBNode node = root;
@@ -224,7 +229,7 @@ public class RedBlackTree {
      */
     public void insert(long val) {
         RBNode node = new RBNode(val);
-        node.color = Color.RED;
+        node.color = Color.R;
         //node.left = new RBNode(null);
         //node.right = new RBNode(null);
 
