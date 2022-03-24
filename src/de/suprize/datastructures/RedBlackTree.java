@@ -222,6 +222,16 @@ public class RedBlackTree {
     }
 
     /**
+     *  insertFix() is the sequel to insert(). It fixes remaining invariant issues (see rules above), if there are any.
+     *
+     * @param node the inserted node that could cause invariant breaches
+     */
+    private void insertFix(RBNode node) {
+        // TODO: balance with rotations, not implemented yet
+        throw new RuntimeException("not implemented yet");
+    }
+
+    /**
      *  insert() will insert a value under the condition that the value does not
      *  already exist in the red-black tree.
      *
@@ -229,9 +239,7 @@ public class RedBlackTree {
      */
     public void insert(long val) {
         RBNode node = new RBNode(val);
-        node.color = Color.R;
-        //node.left = new RBNode(null);
-        //node.right = new RBNode(null);
+        node.color = Color.R;                   // when inserting, color the inserted node red first, color will be changed if any invariants are violated
 
         RBNode gparent, parent, temp = root;
         while(temp != null) {
@@ -244,23 +252,17 @@ public class RedBlackTree {
                     parent.right = node;
                     node.parent = parent;
                 }
-
-                // TODO: balance with rotations, not implemented yet
-                throw new RuntimeException("not implemented yet");
-
             } else if(temp.val > val) {   // insert on left side of the current node in the red-black tree
                 temp = temp.left;
                 if (temp == null) {
                     parent.left = node;
                     node.parent = parent;
                 }
-
-                // TODO: balance with rotations, not implemented yet
-                throw new RuntimeException("not implemented yet");
-
             } else
                 // value already exists, do not insert duplicates
                 return;
+
+            insertFix(node);
         }
     }
 
