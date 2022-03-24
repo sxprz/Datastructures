@@ -251,12 +251,14 @@ public class RedBlackTree {
                 if (temp == null) {
                     parent.right = node;
                     node.parent = parent;
+                    break;
                 }
             } else if(temp.val > val) {   // insert on left side of the current node in the red-black tree
                 temp = temp.left;
                 if (temp == null) {
                     parent.left = node;
                     node.parent = parent;
+                    break;
                 }
             } else
                 // value already exists, do not insert duplicates
